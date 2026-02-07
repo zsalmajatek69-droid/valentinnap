@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 Valentin-nap 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FFE5EC 0%, #FFC2D4 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Lebegő szívek a háttérben */
+        .heart {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 105, 180, 0.3);
+            transform: rotate(45deg);
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 105, 180, 0.3);
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -25px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: 25px;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: rotate(45deg) translateY(0px);
+                opacity: 0.3;
+            }
+            50% {
+                transform: rotate(45deg) translateY(-20px);
+                opacity: 0.6;
+            }
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 60px 80px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+            position: relative;
+            z-index: 10;
+            max-width: 90%;
+            width: 100%;
+        }
+
+        h1 {
+            color: #FF1493;
+            font-size: 3em;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 30px;
+            position: relative;
+            min-height: 80px;
+        }
+
+        button {
+            padding: 20px 50px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            touch-action: manipulation;
+        }
+
+        #yesBtn {
+            background: linear-gradient(135deg, #FF1493 0%, #FF69B4 100%);
+            color: white;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
+        }
+
+        #noBtn {
+            background: linear-gradient(135deg, #DDD 0%, #BBB 100%);
+            color: #666;
+            position: absolute;
+            right: 0;
+        }
+
+        /* Konfetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #FF1493;
+            position: absolute;
+            animation: confetti-fall 3s linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 60px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+        }
+
+        .modal-content h2 {
+            color: #FF1493;
+            font-size: 4em;
+            margin: 0;
+        }
+
+        /* Mobil optimalizálás */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 2em;
+                margin-bottom: 30px;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+                min-height: 180px;
+            }
+
+            button {
+                padding: 15px 40px;
+                font-size: 1.2em;
+                width: 100%;
+                max-width: 200px;
+            }
+
+            #noBtn {
+                position: fixed;
+            }
+
+            .modal-content {
+                padding: 40px 20px;
+            }
+
+            .modal-content h2 {
+                font-size: 2.5em;
+            }
+
+            .heart {
+                width: 30px;
+                height: 30px;
+            }
+
+            .heart::before,
+            .heart::after {
+                width: 30px;
+                height: 30px;
+            }
+
+            .heart::before {
+                top: -15px;
+            }
+
+            .heart::after {
+                left: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            button {
+                padding: 12px 30px;
+                font-size: 1em;
+            }
+
+            .modal-content h2 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Háttér szívek -->
+    <div class="heart" style="top: 10%; left: 10%; animation-delay: 0s;"></div>
+    <div class="heart" style="top: 20%; left: 80%; animation-delay: 1s;"></div>
+    <div class="heart" style="top: 60%; left: 15%; animation-delay: 2s;"></div>
+    <div class="heart" style="top: 70%; left: 75%; animation-delay: 0.5s;"></div>
+    <div class="heart" style="top: 40%; left: 90%; animation-delay: 1.5s;"></div>
+    <div class="heart" style="top: 80%; left: 40%; animation-delay: 2.5s;"></div>
+
+    <!-- Fő tartalom -->
+    <div class="container">
+        <h1>Leszel a Valentinom?</h1>
+        <div class="buttons">
+            <button id="yesBtn">Igen</button>
+            <button id="noBtn">Nem</button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <h2>Ezazzzzz 💕</h2>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const modal = document.getElementById('modal');
+
+        // No gomb mozgatása egerrel (desktop)
+        noBtn.addEventListener('mouseenter', function() {
+            moveNoButton();
+        });
+
+        // No gomb mozgatása érintéssel (mobil)
+        noBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        // Mozgatás függvény
+        function moveNoButton() {
+            // Méret rögzítése első mozgatáskor
+            if (!noBtn.dataset.widthSet) {
+                noBtn.style.width = noBtn.offsetWidth + 'px';
+                noBtn.style.height = noBtn.offsetHeight + 'px';
+                noBtn.dataset.widthSet = 'true';
+            }
+            
+            const maxX = window.innerWidth - noBtn.offsetWidth - 40;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 40;
+            
+            const randomX = Math.random() * maxX + 20;
+            const randomY = Math.random() * maxY + 20;
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        // Yes gomb - konfetti és modal
+        yesBtn.addEventListener('click', function() {
+            createConfetti();
+            modal.style.display = 'flex';
+            
+            // Modal bezárása 3 másodperc után
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 3000);
+        });
+
+        // Konfetti létrehozása
+        function createConfetti() {
+            const colors = ['#FF1493', '#FF69B4', '#FFB6C1', '#FFC0CB', '#FF00FF', '#FF6347'];
+            
+            for (let i = 0; i < 150; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * window.innerWidth + 'px';
+                    confetti.style.top = '-10px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = Math.random() * 10 + 5 + 'px';
+                    confetti.style.height = confetti.style.width;
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    confetti.style.animationDuration = Math.random() * 2 + 2 + 's';
+                    
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 4000);
+                }, i * 20);
+            }
+        }
+    </script>
+</body>
+</html>
